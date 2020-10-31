@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:online_garment_shop/UI/Orders.dart';
 import 'package:online_garment_shop/UI/UserProfile.dart';
 
+import 'Product.dart';
+
 class DashboardDrawer extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -93,7 +95,7 @@ class DashboardDrawerState extends State<DashboardDrawer> {
             ),
             InkWell(
               onTap: () {
-
+                Navigator.push(context, MaterialPageRoute(builder: (context) => Product()));
               },
               child: Container(
                 height: 50.0,

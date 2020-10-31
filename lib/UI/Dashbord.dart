@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'Drawer.dart';
@@ -12,45 +13,47 @@ final List<String> imgList = [
   'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80'
 ];
 
-final List<Widget> imageSliders = imgList.map((item) => Container(
-  child: Container(
-    margin: EdgeInsets.all(5.0),
-    child: ClipRRect(
-        borderRadius: BorderRadius.all(Radius.circular(5.0)),
-        child: Stack(
-          children: <Widget>[
-            Image.network(item, fit: BoxFit.cover, width: 1000.0),
-            Positioned(
-              bottom: 0.0,
-              left: 0.0,
-              right: 0.0,
-              child: Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      Color.fromARGB(200, 0, 0, 0),
-                      Color.fromARGB(0, 0, 0, 0)
-                    ],
-                    begin: Alignment.bottomCenter,
-                    end: Alignment.topCenter,
-                  ),
-                ),
-                padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-                child: Text(
-                  'No. ${imgList.indexOf(item)} image',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        )
-    ),
-  ),
-)).toList();
+final List<Widget> imageSliders = imgList
+    .map((item) => Container(
+          child: Container(
+            margin: EdgeInsets.all(5.0),
+            child: ClipRRect(
+                borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                child: Stack(
+                  children: <Widget>[
+                    Image.network(item, fit: BoxFit.cover, width: 1000.0),
+                    Positioned(
+                      bottom: 0.0,
+                      left: 0.0,
+                      right: 0.0,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              Color.fromARGB(200, 0, 0, 0),
+                              Color.fromARGB(0, 0, 0, 0)
+                            ],
+                            begin: Alignment.bottomCenter,
+                            end: Alignment.topCenter,
+                          ),
+                        ),
+                        padding: EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 20.0),
+                        child: Text(
+                          'No. ${imgList.indexOf(item)} image',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                )),
+          ),
+        ))
+    .toList();
 
 class Dashboard extends StatefulWidget {
   @override
@@ -60,6 +63,7 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   final controller = PageController(viewportFraction: 0.8);
   int _current = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,46 +83,108 @@ class _DashboardState extends State<Dashboard> {
       drawer: Drawer(
         child: DashboardDrawer(),
       ),
-      body:  Column(
+      body: Column(children: [
+        Stack(
+          fit: StackFit.loose,
+          alignment: Alignment.bottomCenter,
           children: [
-            Stack(
-              alignment: Alignment.bottomCenter,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: imgList.map((url) {
-                    int index = imgList.indexOf(url);
-                    return Container(
-                      width: 8.0,
-                      height: 8.0,
-                      margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: _current == index
-                            ? Color.fromRGBO(0, 0, 0, 0.9)
-                            : Color.fromRGBO(0, 0, 0, 0.4),
+            CarouselSlider(
+              items: imageSliders,
+              options: CarouselOptions(
+                  autoPlay: true,
+                  enlargeCenterPage: true,
+                  viewportFraction: 0.97,
+                  aspectRatio: 2,
+                  onPageChanged: (index, reason) {
+                    setState(() {
+                      _current = index;
+                    });
+                  }),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: imgList.map((url) {
+                  int index = imgList.indexOf(url);
+                  return Container(
+                    width: _current == index ? 8 : 6.0,
+                    height: _current == index ? 8 : 6.0,
+                    margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      boxShadow: _current == index
+                          ? [
+                              new BoxShadow(
+                                color: Colors.white,
+                                blurRadius: 20.0,
+                              ),
+                            ]
+                          : [
+                              new BoxShadow(
+                                color: Colors.white,
+                                blurRadius: 10.0,
+                              ),
+                            ],
+                      color: _current == index
+                          ? Color.fromRGBO(255, 255, 255, 1)
+                          : Color.fromRGBO(255, 255, 255, 0.8),
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
+          ],
+        ),
+        Container(
+          margin: EdgeInsets.only(top: 30),
+          height: 180,
+          child: ListView.builder(
+              itemCount: 10,
+              itemExtent: 200,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                return new GestureDetector(
+                  child: new Card(
+                    margin: EdgeInsets.all(10),
+                    elevation: 5.0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                    child: new Container(
+                      alignment: Alignment.center,
+                      child: new Text('Item $index'),
+                    ),
+                  ),
+                  onTap: () {
+                    showDialog(
+                      barrierDismissible: false,
+                      context: context,
+                      child: new CupertinoAlertDialog(
+                        title: new Column(
+                          children: <Widget>[
+                            new Text("GridView"),
+                            new Icon(
+                              Icons.favorite,
+                              color: Colors.green,
+                            ),
+                          ],
+                        ),
+                        content: new Text("Selected Item $index"),
+                        actions: <Widget>[
+                          new FlatButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: new Text("OK"))
+                        ],
                       ),
                     );
-                  }).toList(),
-                ),
-                CarouselSlider(
-                  items: imageSliders,
-                  options: CarouselOptions(
-                      autoPlay: true,
-                      enlargeCenterPage: true,
-                      viewportFraction: 0.9,
-                      aspectRatio: 2,
-                      onPageChanged: (index, reason) {
-                        setState(() {
-                          _current = index;
-                        });
-                      }
-                  ),
-                ),
-              ],
-            ),
-          ]
-      ),
+                  },
+                );
+              }),
+        ),
+      ]),
     );
   }
 }

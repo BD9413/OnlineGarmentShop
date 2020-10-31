@@ -11,6 +11,15 @@ class _SubCategoryState extends State<SubCategory> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
+        ),
         backgroundColor: Color(0xffBB2C0D),
         title: Text("Sub Category"),
       ),
