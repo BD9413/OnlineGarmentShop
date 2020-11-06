@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:online_garment_shop/UI/Checkout.dart';
 import 'package:online_garment_shop/UI/Dashbord.dart';
+import 'package:online_garment_shop/UI/ProductDetail.dart';
 import 'package:online_garment_shop/UI/SplashScreen.dart';
+
+import 'UI/Payments.dart';
 
 void main() {
   runApp(MyApp());
@@ -12,12 +15,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: createMaterialColor(Color(0xffDD2C0D)),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: SplashScreen(),
+      home: ProductDetail(),
     );
   }
   MaterialColor createMaterialColor(Color color) {
