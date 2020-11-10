@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:online_garment_shop/UI/ChangePassword.dart';
 import 'package:online_garment_shop/UI/Orders.dart';
 import 'package:online_garment_shop/UI/UserProfile.dart';
 
@@ -195,7 +196,7 @@ class DashboardDrawerState extends State<DashboardDrawer> {
                 visible: isAnnonymous ? false : true,
                 child: InkWell(
                   onTap: () {
-
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => ChangePassWord()));
                   },
                   child: Container(
                     height: 50.0,

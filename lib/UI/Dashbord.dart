@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'Cart.dart';
 import 'Drawer.dart';
 
 final List<String> imgList = [
@@ -12,16 +13,22 @@ final List<String> imgList = [
   'https://images.unsplash.com/photo-1508704019882-f9cf40e475b4?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=8c6e5e3aba713b17aa1fe71ab4f0ae5b&auto=format&fit=crop&w=1352&q=80',
   'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80'
 ];
+final List<String> imgLis = [
+  "Assets/home_slider_one.png",
+  "Assets/home_slider_two.png",
+  "Assets/home_slider_three.png",
+  "Assets/home_slider_four.png"
+];
 
-final List<Widget> imageSliders = imgList
+final List<Widget> imageSliders = imgLis
     .map((item) => Container(
           child: Container(
             margin: EdgeInsets.all(5.0),
             child: ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                borderRadius: BorderRadius.all(Radius.circular(15.0)),
                 child: Stack(
                   children: <Widget>[
-                    Image.network(item, fit: BoxFit.cover, width: 1000.0),
+                    Image.asset(item, fit: BoxFit.cover, width: 1000.0),
                     Positioned(
                       bottom: 0.0,
                       left: 0.0,
@@ -39,14 +46,6 @@ final List<Widget> imageSliders = imgList
                         ),
                         padding: EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 20.0),
-                        child: Text(
-                          'No. ${imgList.indexOf(item)} image',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
                       ),
                     ),
                   ],
@@ -73,9 +72,14 @@ class _DashboardState extends State<Dashboard> {
         actions: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Icon(
-              Icons.shopping_cart_outlined,
-              color: Colors.white,
+            child: IconButton(
+              onPressed: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context) => Cart()));
+              },
+              icon: Icon(
+                Icons.shopping_cart_outlined,
+                color: Colors.white,
+              ),
             ),
           ),
         ],
@@ -105,12 +109,13 @@ class _DashboardState extends State<Dashboard> {
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: imgList.map((url) {
-                  int index = imgList.indexOf(url);
+                children: imgLis.map((url) {
+                  int index = imgLis.indexOf(url);
                   return Container(
                     width: _current == index ? 8 : 6.0,
                     height: _current == index ? 8 : 6.0,
-                    margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+                    margin:
+                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       boxShadow: _current == index
@@ -140,7 +145,7 @@ class _DashboardState extends State<Dashboard> {
           margin: EdgeInsets.only(top: 30),
           height: 180,
           child: ListView.builder(
-              itemCount: 10,
+              itemCount: 4,
               itemExtent: 200,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
@@ -151,9 +156,24 @@ class _DashboardState extends State<Dashboard> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15.0),
                     ),
-                    child: new Container(
-                      alignment: Alignment.center,
-                      child: new Text('Item $index'),
+                    child: Stack(
+                      children: [
+                        new Container(
+                            alignment: Alignment.center,
+                            child: Image.asset(
+                              imgLis[index],
+                              fit: BoxFit.contain,
+                            )),
+                        Align(
+                          alignment: Alignment.bottomCenter,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                "Men",
+                          ),
+                            )
+                        )
+                      ],
                     ),
                   ),
                   onTap: () {

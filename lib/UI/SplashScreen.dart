@@ -25,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Container(
         height: double.maxFinite,
         width: double.maxFinite,
-        color: Color(0xffDD2C0D),
+        color: Color(0xffBB2C0D),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,

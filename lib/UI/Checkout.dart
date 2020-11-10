@@ -21,16 +21,6 @@ class _CheckoutState extends State<Checkout> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: Icon(
-            Icons.arrow_back,
-            color: Colors.white,
-          ),
-        ),
-        backgroundColor: Color(0xffDD2C0D),
         title: Text("Checkout"),
       ),
       bottomNavigationBar: BottomAppBar(
@@ -41,18 +31,15 @@ class _CheckoutState extends State<Checkout> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Card(
-            margin: EdgeInsets.all(25),
+            margin: EdgeInsets.only(top:25,left: 25, right: 25),
             elevation: 5,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(25),
             ),
             child: Padding(
-              padding: EdgeInsets.all(15.0),
+              padding: EdgeInsets.only(left:20, right: 20,),
               child: Column(
                 children: [
-                  SizedBox(
-                    height: 20,
-                  ),
                   SizedBox(
                     height: 20,
                   ),
@@ -78,7 +65,7 @@ class _CheckoutState extends State<Checkout> {
                     maxLines: 5,
                     controller: address,
                     decoration: InputDecoration(
-                        focusColor: Color(0xffDD2C0D),
+                        focusColor: Color(0xffBB2C0D),
                         labelText: "Address",
                         labelStyle: TextStyle(
                             fontSize: 22, fontWeight: FontWeight.w500)),
@@ -122,7 +109,7 @@ class _CheckoutState extends State<Checkout> {
                             "How do you want to pay?",
                             style: TextStyle(
                                 fontSize: 16,
-                                color: Color(0xffDD2C0D),
+                                color: Color(0xffBB2C0D),
                                 fontWeight: FontWeight.w400),
                           ),
                           Text(
@@ -152,7 +139,7 @@ class _CheckoutState extends State<Checkout> {
           const EdgeInsets.only(top: 15.0, bottom: 10, left: 25, right: 25),
       child: RaisedButton(
         onPressed: () {},
-        color: Color(0xffDD2C0D),
+        color: Color(0xffBB2C0D),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         child: Text(
           "Submit",

@@ -13,7 +13,7 @@ class _ProductDetailState extends State<ProductDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xffDD2C0D),
+        backgroundColor: Color(0xffBB2C0D),
         title: Text("Product Details"),
       ),
       body: SingleChildScrollView(
@@ -81,7 +81,7 @@ class _ProductDetailState extends State<ProductDetail> {
                             "₹ 3200",
                             style: TextStyle(
                                 fontSize: 20,
-                                color: Color(0xffDD2C0D),
+                                color: Color(0xffBB2C0D),
                                 fontWeight: FontWeight.w800),
                           ),
                           Container(
@@ -94,15 +94,15 @@ class _ProductDetailState extends State<ProductDetail> {
                             height: 30,
                             child: TextField(
                               decoration: InputDecoration(
-                                hoverColor: Color(0xffDD2C0D),
-                                focusColor: Color(0xffDD2C0D),
+                                hoverColor: Color(0xffBB2C0D),
+                                focusColor: Color(0xffBB2C0D),
                               ),
-                              cursorColor: Color(0xffDD2C0D),
+                              cursorColor: Color(0xffBB2C0D),
                             ),
                           ),
                           RaisedButton(
                             onPressed: () {},
-                            color: Color(0xffDD2C0D),
+                            color: Color(0xffBB2C0D),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20),
                             ),

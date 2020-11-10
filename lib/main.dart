@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:online_garment_shop/UI/Cart.dart';
+import 'package:online_garment_shop/UI/ChangePassword.dart';
 import 'package:online_garment_shop/UI/Checkout.dart';
 import 'package:online_garment_shop/UI/Dashbord.dart';
+import 'package:online_garment_shop/UI/ForgotPassword.dart';
+import 'package:online_garment_shop/UI/OrderDetails.dart';
 import 'package:online_garment_shop/UI/ProductDetail.dart';
+import 'package:online_garment_shop/UI/SignIn.dart';
+import 'package:online_garment_shop/UI/SignUp.dart';
 import 'package:online_garment_shop/UI/SplashScreen.dart';
+import 'package:online_garment_shop/UI/SubCategory.dart';
+import 'package:online_garment_shop/UI/UpdateProfile.dart';
 
 import 'UI/Payments.dart';
 
@@ -15,13 +23,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: false ,
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: createMaterialColor(Color(0xffDD2C0D)),
+        primarySwatch: createMaterialColor(Color(0xffBB2C0D)),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: ProductDetail(),
+      home: ChangePassWord(),
     );
   }
   MaterialColor createMaterialColor(Color color) {

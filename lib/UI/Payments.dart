@@ -12,7 +12,6 @@ class _PaymentsState extends State<Payments> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xffDD2C0D),
         title: Text("Payments"),
       ),
       body: SingleChildScrollView(
@@ -37,7 +36,7 @@ class _PaymentsState extends State<Payments> {
                         "₹ 3200",
                         style: TextStyle(
                             fontSize: 24,
-                            color: Color(0xffDD2C0D),
+                            color: Color(0xffBB2C0D),
                             fontWeight: FontWeight.w900),
                       ),
                       Wrap(
