@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: createMaterialColor(Color(0xffBB2C0D)),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: ChangePassWord(),
+      home: Dashboard(),
     );
   }
   MaterialColor createMaterialColor(Color color) {
