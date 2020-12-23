@@ -29,10 +29,10 @@ class _SignUpState extends State<SignUp> {
       _radioValue = value;
       switch (_radioValue) {
         case 0:
-          gender = "Male";
+          gender = "male";
           break;
         case 1:
-          gender = "Female";
+          gender = "female";
           break;
       }
       print(gender);
