@@ -108,7 +108,7 @@ class _ChangePassWordState extends State<ChangePassWord> {
                                     });
                                   },
                                   icon: Icon(
-                                    isObscureOld ? Icons.visibility_off_sharp : Icons.visibility_sharp,
+                                    isObscureOld ? Icons.visibility_off : Icons.visibility,
                                     color: Color(0xffBB2C0D
                                     ),
                                   ),
@@ -135,7 +135,7 @@ class _ChangePassWordState extends State<ChangePassWord> {
                                     });
                                   },
                                   icon: Icon(
-                                    isObscureNew ? Icons.visibility_off_sharp : Icons.visibility_sharp,
+                                    isObscureNew ? Icons.visibility_off : Icons.visibility,
                                     color: Color(0xffBB2C0D
                                     ),
                                   ),
@@ -162,7 +162,7 @@ class _ChangePassWordState extends State<ChangePassWord> {
                                     });
                                   },
                                   icon: Icon(
-                                    isObscureConfirm ? Icons.visibility_off_sharp : Icons.visibility_sharp,
+                                    isObscureConfirm ? Icons.visibility_off : Icons.visibility,
                                     color: Color(0xffBB2C0D
                                     ),
                                   ),

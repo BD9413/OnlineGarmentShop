@@ -20,7 +20,7 @@ class _UserProfileState extends State<UserProfile> {
               Navigator.pop(context);
             },
             icon: Icon(
-              Icons.person_add_rounded,
+              Icons.person_add,
               color: Colors.white,
             ),
           ),

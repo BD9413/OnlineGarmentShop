@@ -123,7 +123,7 @@ class _CheckoutState extends State<Checkout> {
                       ),
                     ],
                   ),
-                  Icon(Icons.arrow_forward_ios_rounded, size: 15)
+                  Icon(Icons.arrow_forward_ios, size: 15)
                 ],
               ),
             ),

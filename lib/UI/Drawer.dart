@@ -44,7 +44,7 @@ class DashboardDrawerState extends State<DashboardDrawer> {
                       Container(
                         margin: EdgeInsets.fromLTRB(25.0, 0.0, 25.0, 0.0),
                         child: Icon(
-                          Icons.home_outlined,
+                          Icons.home,
                           color: Colors.black54,
                         ),
                       ),
@@ -75,7 +75,7 @@ class DashboardDrawerState extends State<DashboardDrawer> {
                       Container(
                         margin: EdgeInsets.fromLTRB(25.0, 0.0, 0.0, 0.0),
                         child: Icon(
-                          Icons.widgets_outlined,
+                          Icons.widgets,
                           color: Colors.black54,
                         ),
                       ),
@@ -107,7 +107,7 @@ class DashboardDrawerState extends State<DashboardDrawer> {
                       Container(
                         margin: EdgeInsets.fromLTRB(25.0, 0.0, 0.0, 0.0),
                         child: Icon(
-                          Icons.wc_outlined,
+                          Icons.wc,
                           color: Colors.black54,
                         ),
                       ),
@@ -141,7 +141,7 @@ class DashboardDrawerState extends State<DashboardDrawer> {
                         Container(
                           margin: EdgeInsets.fromLTRB(25.0, 0.0, 0.0, 0.0),
                           child: Icon(
-                            Icons.article_outlined,
+                            Icons.assignment,
                             color: Colors.black54,
                           ),
                         ),
@@ -174,7 +174,7 @@ class DashboardDrawerState extends State<DashboardDrawer> {
                       Container(
                         margin: EdgeInsets.fromLTRB(25.0, 0.0, 0.0, 0.0),
                         child: Icon(
-                          Icons.account_circle_outlined,
+                          Icons.account_circle,
                           color: Colors.black54,
                         ),
                       ),
@@ -207,7 +207,7 @@ class DashboardDrawerState extends State<DashboardDrawer> {
                           Container(
                             margin: EdgeInsets.fromLTRB(25.0, 0.0, 0.0, 0.0),
                             child: Icon(
-                              Icons.vpn_key_outlined,
+                              Icons.vpn_key,
                               color: Colors.black54,
                             ),
                           ),
@@ -244,7 +244,7 @@ class DashboardDrawerState extends State<DashboardDrawer> {
                             Container(
                               margin: EdgeInsets.fromLTRB(25.0, 0.0, 0.0, 0.0),
                               child: Icon(
-                                Icons.logout,
+                                Icons.lock_open,
                                 color: Colors.black54,
                               ),
                             ),

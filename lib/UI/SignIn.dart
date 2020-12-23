@@ -144,7 +144,7 @@ class _SignInState extends State<SignIn> {
                                       });
                                     },
                                     icon: Icon(
-                                      isObscureText ? Icons.visibility_off_sharp : Icons.visibility_sharp,
+                                      isObscureText ? Icons.visibility_off : Icons.visibility,
                                       color: Color(0xffBB2C0D
                                       ),
                                     ),

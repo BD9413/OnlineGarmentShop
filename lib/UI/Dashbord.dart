@@ -77,7 +77,7 @@ class _DashboardState extends State<Dashboard> {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => Cart()));
               },
               icon: Icon(
-                Icons.shopping_cart_outlined,
+                Icons.shopping_cart,
                 color: Colors.white,
               ),
             ),

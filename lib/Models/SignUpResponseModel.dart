@@ -4,12 +4,8 @@
 
 import 'dart:convert';
 
-Welcome welcomeFromJson(String str) => Welcome.fromJson(json.decode(str));
-
-String welcomeToJson(Welcome data) => json.encode(data.toJson());
-
-class Welcome {
-  Welcome({
+class RegisterModel {
+  RegisterModel({
     this.flag,
     this.uid,
     this.uname,
@@ -21,7 +17,7 @@ class Welcome {
   String uname;
   String message;
 
-  factory Welcome.fromJson(Map<String, dynamic> json) => Welcome(
+  factory RegisterModel.fromJson(Map<String, dynamic> json) => RegisterModel(
     flag: json["flag"],
     uid: json["uid"],
     uname: json["uname"],

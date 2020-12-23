@@ -97,7 +97,7 @@ class _CartState extends State<Cart> {
                                               });
                                             },
                                             icon: Icon(
-                                              Icons.remove_circle_outline_sharp,
+                                              Icons.remove_circle_outline,
                                               color: Color(0xffBB2C0D),
                                             ),
                                           ),
@@ -115,7 +115,7 @@ class _CartState extends State<Cart> {
                                               });
                                             },
                                             icon: Icon(
-                                              Icons.add_circle_outline_sharp,
+                                              Icons.add_circle_outline,
                                               color: Color(0xffBB2C0D),
                                             ),
                                           ),
