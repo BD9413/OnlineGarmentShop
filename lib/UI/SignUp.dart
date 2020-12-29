@@ -2,9 +2,7 @@ import 'dart:convert';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:online_garment_shop/Configration/APICalls.dart';
 import 'package:online_garment_shop/Configration/APIUrls.dart';
-import 'package:online_garment_shop/Models/SignUpResponseModel.dart';
 import 'package:online_garment_shop/UI/Dashbord.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
