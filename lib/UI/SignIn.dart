@@ -199,7 +199,7 @@ class _SignInState extends State<SignIn> {
   }
 
   login() async {
-    final response = await http.post(APIUrls.signUp, body: {
+    final response = await http.post(APIUrls.login, body: {
       "user_email": email != null ? email : "",
       "user_password": password != null ? password : "",
     });
