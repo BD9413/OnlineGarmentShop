@@ -1,4 +1,12 @@
+import 'dart:convert';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart' as http;
+
 import 'package:flutter/material.dart';
+import 'package:online_garment_shop/Configration/APIUrls.dart';
+import 'package:online_garment_shop/UI/SignIn.dart';
+
+import 'Dashbord.dart';
 
 class ForgotPassword extends StatefulWidget {
   @override
@@ -151,11 +159,45 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   _sendToServer() {
     if (_key.currentState.validate()) {
       _key.currentState.save();
+      forgotPassword();
     } else {
       setState(() {
         _validate = true;
       });
     }
+  }
+
+  forgotPassword() async {
+    final response = await http.post(APIUrls.forgotPassword, body: {
+      "user_email": email != null ? email : "",
+    });
+
+    final data = jsonDecode(response.body);
+    int flag = data['flag'];
+    String message = data['message'];
+
+    if (flag == 1) {
+      setState(() {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => SignIn()));
+      });
+      print(message);
+      registerToast(message);
+    } else {
+      print("fail");
+      print(message);
+      registerToast(message);
+    }
+  }
+
+  registerToast(String toast) {
+    return Fluttertoast.showToast(
+        msg: toast,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIos: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white);
   }
 
   String validateEmail(String value) {

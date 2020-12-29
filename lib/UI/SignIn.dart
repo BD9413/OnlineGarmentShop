@@ -230,7 +230,7 @@ class _SignInState extends State<SignIn> {
     setState(() {
       preferences.setInt("flag", flag);
       preferences.setString("message", message);
-      preferences.setString("userData", json.encode(userdata.toJson));
+      preferences.setString("userData", json.encode(userdata));
       preferences.commit();
     });
   }
