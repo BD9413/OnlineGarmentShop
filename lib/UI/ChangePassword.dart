@@ -1,4 +1,10 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:online_garment_shop/Configration/APIUrls.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ChangePassWord extends StatefulWidget {
   @override
@@ -207,11 +213,58 @@ class _ChangePassWordState extends State<ChangePassWord> {
   _sendToServer() {
     if (_key.currentState.validate()) {
       _key.currentState.save();
+      changePassword();
     } else {
       setState(() {
         _validate = true;
       });
     }
+  }
+
+  changePassword() async {
+    final response = await http.post(APIUrls.changePassword, body: {
+      "user_id": "",
+      "opass": oldPassword != null ? oldPassword : "",
+      "npass": password != null ? password : "",
+      "cpass": confirmPassword != null ? confirmPassword : "",
+    });
+
+    final data = jsonDecode(response.body);
+    int flag = data['flag'];
+    String message = data['message'];
+
+    if (flag == 1) {
+      setState(() {
+        savePref(flag, message);
+        // Navigator.push(
+        //     context, MaterialPageRoute(builder: (context) => Dashboard()));
+      });
+      print(message);
+      registerToast(message);
+    } else {
+      print("fail");
+      print(message);
+      registerToast(message);
+    }
+  }
+
+  savePref(int flag, String message) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    setState(() {
+      preferences.setInt("flag", flag);
+      preferences.setString("message", message);
+      preferences.commit();
+    });
+  }
+
+  registerToast(String toast) {
+    return Fluttertoast.showToast(
+        msg: toast,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIos: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white);
   }
 
   String validateOldPassword(String value) {
@@ -228,6 +281,8 @@ class _ChangePassWordState extends State<ChangePassWord> {
       return 'Password is required';
     } else if (value.length < 4) {
       return 'Password must be at least 4 characters';
+    } else if(value == oldPassword) {
+      return 'Old Password must be different from Old Password';
     }
     return null;
   }
@@ -237,6 +292,8 @@ class _ChangePassWordState extends State<ChangePassWord> {
       return 'Password is required';
     } else if (value.length < 4) {
       return 'Password must be at least 4 characters';
+    } else if(value != password) {
+      return 'Confirm Password not Match';
     }
     return null;
   }

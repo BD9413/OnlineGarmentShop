@@ -68,13 +68,24 @@ class _DashboardState extends State<Dashboard> {
   final controller = PageController(viewportFraction: 0.8);
   int _current = 0;
 
-  gitCategories() async {
+
+  int flag = 0;
+  String message = '';
+  List<Category> category = [];
+
+  getCategories() async {
     final response = await http.get(APIUrls.viewCategories);
-    ApiResponseModel apiResponseModel = response as ApiResponseModel;
+    final data = jsonDecode(response.body);
+    flag = data['flag'];
+    message = data['message'];
+    var catList = data['category'] as List;
+    category = catList.map((e) => Category.fromJson(e)).toList();
+
   }
 
   @override
   void initState() {
+    getCategories();
     // TODO: implement initState
     super.initState();
   }
@@ -159,67 +170,74 @@ class _DashboardState extends State<Dashboard> {
         Container(
           margin: EdgeInsets.only(top: 30),
           height: 180,
-          child: ListView.builder(
-              itemCount: 4,
-              itemExtent: 200,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                return new GestureDetector(
-                  child: new Card(
-                    margin: EdgeInsets.all(10),
-                    elevation: 5.0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0),
-                    ),
-                    child: Stack(
-                      children: [
-                        new Container(
-                            alignment: Alignment.center,
-                            child: Image.asset(
-                              imgLis[index],
-                              fit: BoxFit.contain,
-                            )),
-                        Align(
-                          alignment: Alignment.bottomCenter,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                "Men",
-                          ),
-                            )
-                        )
-                      ],
-                    ),
-                  ),
-                  onTap: () {
-                    showDialog(
-                      barrierDismissible: false,
-                      context: context,
-                      child: new CupertinoAlertDialog(
-                        title: new Column(
-                          children: <Widget>[
-                            new Text("GridView"),
-                            new Icon(
-                              Icons.favorite,
-                              color: Colors.green,
-                            ),
-                          ],
-                        ),
-                        content: new Text("Selected Item $index"),
-                        actions: <Widget>[
-                          new FlatButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: new Text("OK"))
-                        ],
-                      ),
-                    );
-                  },
-                );
-              }),
+          child: categoryCardList(),
         ),
       ]),
     );
+  }
+
+  Widget categoryCardList() {
+    if(flag == 1) {
+      return ListView.builder(
+          itemCount: category.length,
+          itemExtent: 200,
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, index) {
+            return new GestureDetector(
+              child: new Card(
+                margin: EdgeInsets.all(10),
+                elevation: 5.0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                child: Stack(
+                  children: [
+                    new Container(
+                        alignment: Alignment.center,
+                        child: Image.network(
+                          category[index].categoryImage,
+                          fit: BoxFit.contain,
+                        )),
+                    Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            category[index].categoryName,
+                          ),
+                        )
+                    )
+                  ],
+                ),
+              ),
+              onTap: () {
+                showDialog(
+                  barrierDismissible: false,
+                  context: context,
+                  child: new CupertinoAlertDialog(
+                    title: new Column(
+                      children: <Widget>[
+                        new Text("GridView"),
+                        new Icon(
+                          Icons.favorite,
+                          color: Colors.green,
+                        ),
+                      ],
+                    ),
+                    content: new Text("Selected Item ${category[index].categoryId}"),
+                    actions: <Widget>[
+                      new FlatButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: new Text("OK"))
+                    ],
+                  ),
+                );
+              },
+            );
+          });
+    } else
+      return Text(message);
   }
 }

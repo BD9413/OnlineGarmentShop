@@ -2,8 +2,6 @@
 //
 //     final welcome = welcomeFromJson(jsonString);
 
-import 'dart:convert';
-
 class RegisterModel {
   RegisterModel({
     this.flag,
