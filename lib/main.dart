@@ -5,6 +5,7 @@ import 'package:online_garment_shop/UI/Checkout.dart';
 import 'package:online_garment_shop/UI/Dashbord.dart';
 import 'package:online_garment_shop/UI/ForgotPassword.dart';
 import 'package:online_garment_shop/UI/OrderDetails.dart';
+import 'package:online_garment_shop/UI/Product.dart';
 import 'package:online_garment_shop/UI/ProductDetail.dart';
 import 'package:online_garment_shop/UI/SignIn.dart';
 import 'package:online_garment_shop/UI/SignUp.dart';
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: createMaterialColor(Color(0xffBB2C0D)),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: SubCategory(1),
+      home: Product(),
     );
   }
   MaterialColor createMaterialColor(Color color) {

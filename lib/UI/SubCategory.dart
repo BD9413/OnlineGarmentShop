@@ -22,7 +22,7 @@ class _SubCategoryState extends State<SubCategory> {
   getSubCategories() async {
 
     final response = await http.post(APIUrls.subCategories, body: {
-      "category_id": widget.categoryId,
+      "category_id": widget.categoryId.toString(),
     });
 
     final data = jsonDecode(response.body);
@@ -71,16 +71,20 @@ class _SubCategoryState extends State<SubCategory> {
               margin: EdgeInsets.all(10),
               child: Column(
                 children: [
-                  new Card(
-                      margin: EdgeInsets.all(4),
-                      elevation: 5.0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15.0),
-                      ),
-                      child: Image.network(
-                        subCategoryModel[index].subCategoryImage,
-                        fit: BoxFit.fill,
-                      )),
+                  Container(
+                    height: 160,
+                    width: (double.maxFinite/2) - 20,
+                    child: new Card(
+                        margin: EdgeInsets.all(4),
+                        elevation: 5.0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                        ),
+                        child: Image.network(
+                          subCategoryModel[index].subCategoryImage,
+                          fit: BoxFit.contain,
+                        )),
+                  ),
                   Padding(
                     padding: const EdgeInsets.all(4.0),
                     child: Text(
