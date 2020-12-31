@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:online_garment_shop/Configration/APIUrls.dart';
 import 'package:online_garment_shop/Models/SignInResponseModel.dart';
+import 'package:online_garment_shop/UI/ForgotPassword.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'Dashbord.dart';
+import 'SignUp.dart';
 
 class SignIn extends StatefulWidget {
   @override
@@ -163,7 +165,7 @@ class _SignInState extends State<SignIn> {
                           ),
                           Padding(
                             padding: const EdgeInsets.only(
-                                top: 20, left: 20, right: 20, bottom: 10),
+                                top: 20, left: 20, right: 20, bottom: 0),
                             child: Container(
                               width: double.maxFinite,
                               child: RaisedButton(
@@ -184,6 +186,43 @@ class _SignInState extends State<SignIn> {
                                 ),
                               ),
                             ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(1.0),
+                                child: InkWell(
+                                  onTap: () {
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) => SignUp()));
+                                  },
+                                  child: Text(
+                                    "Sign Up? |",
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w700,
+                                      color: Color(0xffBB2C0D),
+                                    ),
+                                  ),
+                                )
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(1.0),
+                                child: InkWell(
+                                  onTap: () {
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) => ForgotPassword()));
+                                  },
+                                  child: Text(
+                                    " Forgot Password?",
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w700,
+                                      color: Color(0xffBB2C0D),
+                                    ),
+                                  ),
+                                )
+                              ),
+                            ],
                           )
                         ],
                       ),
@@ -228,8 +267,8 @@ class _SignInState extends State<SignIn> {
   savePref(int flag, String message, Userdata userdata) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     setState(() {
-      preferences.setInt("flag", flag);
-      preferences.setString("message", message);
+      preferences.setInt("loginFlag", flag);
+      preferences.setString("loginMessage", message);
       preferences.setString("userData", json.encode(userdata));
       preferences.commit();
     });

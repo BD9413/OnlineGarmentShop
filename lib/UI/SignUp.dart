@@ -311,10 +311,10 @@ class _SignUpState extends State<SignUp> {
   savePref(int flag, int uid, String uname, String message) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     setState(() {
-      preferences.setInt("flag", flag);
-      preferences.setString("name", uname);
-      preferences.setString("uid", uid.toString());
-      preferences.setString("message", message);
+      preferences.setInt("registerFlag", flag);
+      preferences.setString("registerName", uname);
+      preferences.setString("registerUid", uid.toString());
+      preferences.setString("registerMessage", message);
       preferences.commit();
     });
   }
