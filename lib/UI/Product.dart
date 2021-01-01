@@ -1,6 +1,10 @@
+import 'dart:convert';
 import 'dart:ui';
+import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
+import 'package:online_garment_shop/Configration/APIUrls.dart';
+import 'package:online_garment_shop/Models/ProductModel.dart';
 
 class Product extends StatefulWidget {
   @override
@@ -8,6 +12,25 @@ class Product extends StatefulWidget {
 }
 
 class _ProductState extends State<Product> {
+  int flag = 0;
+  String message = '';
+  List<Products> product = [];
+
+  getProduct() async {
+    final response = await http.get(APIUrls.viewProduct);
+    final data = jsonDecode(response.body);
+    ProductResponseModel productResponseModel = ProductResponseModel.fromJson(data);
+    flag = productResponseModel.flag;
+    message = productResponseModel.message;
+    product = productResponseModel.product;
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getProduct();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +41,7 @@ class _ProductState extends State<Product> {
       body: Container(
         padding: EdgeInsets.all(10),
         child: ListView.builder(
-            itemCount: 2,
+            itemCount: product.length,
             itemBuilder: (context, index) {
               return Card(
                   elevation: 5,
@@ -29,36 +52,47 @@ class _ProductState extends State<Product> {
                     child: Row(
                       children: [
                         Container(
-                          height: 50,
-                          width: 50,
+                          height: 70,
+                          width: 70,
                           child: Image.network(
-                              "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcStJfeEdmKbCRwoLAoGaH7-2Y3L38fhYnpuF-EqcCIGL6G3Eav_5wm2QOOBxkU8RqCayNKx9L9l&usqp=CAc"),
+                              product[index].productImage),
                         ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "HRX by Hrithik Roshan",
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w400),
-                            ),
-                            Text(
-                              "Men Yellow Printed Round Neck T-Shirt",
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.black54,
-                                  fontWeight: FontWeight.w400),
-                            ),
-                            Text(
-                              "₹ 3200",
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w700),
-                            )
-                          ],
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                product[index].productName,
+                                maxLines: 2,
+                                softWrap: true,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w400),
+                              ),
+                              Text(
+                                product[index].productDetails,
+                                maxLines: 2,
+                                softWrap: true,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.black54,
+                                    fontWeight: FontWeight.w400),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: Text(
+                                  product[index].productPrice,
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w700),
+                                ),
+                              )
+                            ],
+                          ),
                         )
                       ],
                     ),
