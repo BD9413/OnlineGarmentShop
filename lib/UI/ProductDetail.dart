@@ -1,14 +1,43 @@
+import 'dart:convert';
 import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:online_garment_shop/Models/ProductModel.dart';
+import 'package:online_garment_shop/Models/SignInResponseModel.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProductDetail extends StatefulWidget {
+  final Products products;
+  ProductDetail({this.products});
   @override
   _ProductDetailState createState() => _ProductDetailState();
 }
 
 class _ProductDetailState extends State<ProductDetail> {
+  Products _products;
+
+  String registerUid = "";
+  String loginUid = "";
+  Userdata _userdata;
+  var user;
+
+  getUserValuesSP() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    //Return String
+    registerUid = prefs.getString('registerUid');
+    user = prefs.getString('userData');
+    _userdata = Userdata.fromJson(jsonDecode(user));
+    loginUid = _userdata.userId;
+  }
+
+  @override
+  void initState() {
+    getUserValuesSP();
+    _products = widget.products;
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +65,7 @@ class _ProductDetailState extends State<ProductDetail> {
                         image: DecorationImage(
                             fit: BoxFit.cover,
                             image: NetworkImage(
-                              "https://assets.myntassets.com/h_1440,q_100,w_1080/v1/assets/images/1700944/2019/6/8/972c9498-3a37-4d5d-976c-4493b4d5c0021559989322793-HRX-by-Hrithik-Roshan-Men-Yellow-Printed-Round-Neck-T-Shirt--1.jpg",
+                              _products.productImage,
                             ))),
                   ),
                 ),
@@ -55,16 +84,7 @@ class _ProductDetailState extends State<ProductDetail> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Tistabene",
-                        style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.black,
-                            fontWeight: FontWeight.w700),
-                      ),
-                      Text(
-                        "Men Red & Beige Comfort Slim Fit Printed Casual Shirt With Mask",
-                        maxLines: 3,
-                        overflow: TextOverflow.ellipsis,
+                        _products.productName,
                         style: TextStyle(
                             fontSize: 18,
                             color: Colors.black,
@@ -78,7 +98,7 @@ class _ProductDetailState extends State<ProductDetail> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "₹ 3200",
+                            _products.productPrice,
                             style: TextStyle(
                                 fontSize: 20,
                                 color: Color(0xffBB2C0D),
@@ -134,7 +154,7 @@ class _ProductDetailState extends State<ProductDetail> {
             Padding(
               padding: EdgeInsets.only(left:20.0, right: 20),
               child: Text(
-                "Red and Beige Printed casual shirt, has a mandarin collar, long sleeves, button placket, Curved hem, and 1 patch pocket Comes with a Mask",
+                _products.productDetails,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 4,
                 style: TextStyle(
