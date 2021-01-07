@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:ui';
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
@@ -15,26 +16,29 @@ class Product extends StatefulWidget {
 class _ProductState extends State<Product> {
   int flag = 0;
   String message = '';
+  Future getProducts;
   List<Products> products = [];
+  ProductResponseModel productResponseModel;
 
   getProduct() async {
     final response = await http.get(APIUrls.viewProduct);
     final data = jsonDecode(response.body);
-    ProductResponseModel productResponseModel = ProductResponseModel.fromJson(data);
-    flag = productResponseModel.flag;
-    message = productResponseModel.message;
-    products = productResponseModel.product;
+    ProductResponseModel _productResponseModel =
+    ProductResponseModel.fromJson(data);
+    flag = _productResponseModel.flag;
+    message = _productResponseModel.message;
+   // products = _productResponseModel.product;
+    //return _productResponseModel;
   }
 
   @override
   void initState() {
     // TODO: implement initState
-    setState(() {
-      getProduct();
-    });
+    getProducts = http.get(APIUrls.viewProduct);
     super.initState();
     //getProduct();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,72 +46,103 @@ class _ProductState extends State<Product> {
         backgroundColor: Color(0xffBB2C0D),
         title: Text("Product"),
       ),
-      body: Container(
-        padding: EdgeInsets.all(10),
-        child: ListView.builder(
-            itemCount: products.length,
-            itemBuilder: (context, index) {
-              return InkWell(
-                onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => ProductDetail(products: products[index],)));
-                },
-                child: Card(
-                    elevation: 5,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                          Container(
-                            height: 70,
-                            width: 70,
-                            child: Image.network(
-                                products[index].productImage),
-                          ),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+      body: Container(padding: EdgeInsets.all(10), child: productList()),
+    );
+  }
+
+  Widget productList() {
+    return FutureBuilder(
+        future: getProducts,
+        builder: (context, snapShot) {
+          if (snapShot.connectionState == ConnectionState.done) {
+            var x = jsonDecode(snapShot.data);
+            ProductResponseModel _productRes = ProductResponseModel.fromJson(x);
+            if(_productRes.flag == 1) {
+              products = _productRes.product;
+              return ListView.builder(
+                  itemCount: products.length,
+                  itemBuilder: (context, index) {
+                    return InkWell(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => ProductDetail(products: products[index],)));
+                      },
+                      child: Card(
+                          elevation: 5,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
                               children: [
-                                Text(
-                                  products[index].productName,
-                                  maxLines: 2,
-                                  softWrap: true,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w400),
+                                Container(
+                                  height: 70,
+                                  width: 70,
+                                  child: Image.network(
+                                      products[index].productImage),
                                 ),
-                                Text(
-                                  products[index].productDetails,
-                                  maxLines: 2,
-                                  softWrap: true,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.black54,
-                                      fontWeight: FontWeight.w400),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(4.0),
-                                  child: Text(
-                                    products[index].productPrice,
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w700),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        products[index].productName,
+                                        maxLines: 2,
+                                        softWrap: true,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w400),
+                                      ),
+                                      Text(
+                                        products[index].productDetails,
+                                        maxLines: 2,
+                                        softWrap: true,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            color: Colors.black54,
+                                            fontWeight: FontWeight.w400),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(4.0),
+                                        child: Text(
+                                          products[index].productPrice,
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w700),
+                                        ),
+                                      )
+                                    ],
                                   ),
                                 )
                               ],
                             ),
-                          )
-                        ],
-                      ),
-                    )),
+                          )),
+                    );
+                  });
+            } else
+              return Center(
+                child: Text(_productRes.message,
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
               );
-            }),
-      ),
+          } else if (snapShot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          }
+          return Center(
+            child: Text(message,
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          );
+        }
     );
   }
 }

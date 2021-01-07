@@ -1,6 +1,6 @@
 
 class APIUrls{
-  static final String baseUrl = "http://apwebtester.in/garments/api/";
+  static final String baseUrl = "http://akashsir.in/myapi/ecom1/api/";
 
   static final String signUp = baseUrl+"api-signup.php";
   static final String login = baseUrl+"api-login.php";
