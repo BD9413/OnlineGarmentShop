@@ -167,6 +167,7 @@ class _ProductDetailState extends State<ProductDetail> {
                             width: 70,
                             height: 30,
                             child: TextField(
+                              keyboardType: TextInputType.number,
                               controller: quantity,
                               decoration: InputDecoration(
                                 hoverColor: Color(0xffBB2C0D),

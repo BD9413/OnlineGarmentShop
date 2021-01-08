@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:online_garment_shop/UI/Checkout.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Cart extends StatefulWidget {
   @override
@@ -9,6 +10,15 @@ class Cart extends StatefulWidget {
 class _CartState extends State<Cart> {
 
   int count = 0;
+  String loginUid = "";
+  String registerUid = "";
+
+  getUserValuesSP() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    loginUid = prefs.getString('registerFlag');
+    registerUid = prefs.getString('registerUid');
+  }
+
   @override
   void initState() {
     // TODO: implement initState

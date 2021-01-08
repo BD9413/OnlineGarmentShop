@@ -269,6 +269,7 @@ class _SignInState extends State<SignIn> {
     setState(() {
       preferences.setInt("loginFlag", flag);
       preferences.setString("loginMessage", message);
+      preferences.setString("loginUid", userdata.userId.toString());
       preferences.setString("userData", json.encode(userdata));
       preferences.commit();
     });

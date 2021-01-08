@@ -20,23 +20,16 @@ class _ProductState extends State<Product> {
   List<Products> products = [];
   ProductResponseModel productResponseModel;
 
-  getProduct() async {
+  Future apiCallGetProduct() async {
     final response = await http.get(APIUrls.viewProduct);
-    final data = jsonDecode(response.body);
-    ProductResponseModel _productResponseModel =
-    ProductResponseModel.fromJson(data);
-    flag = _productResponseModel.flag;
-    message = _productResponseModel.message;
-   // products = _productResponseModel.product;
-    //return _productResponseModel;
+     return jsonDecode(response.body);
   }
 
   @override
   void initState() {
     // TODO: implement initState
-    getProducts = http.get(APIUrls.viewProduct);
+    getProducts = apiCallGetProduct();
     super.initState();
-    //getProduct();
   }
 
   @override
@@ -55,8 +48,7 @@ class _ProductState extends State<Product> {
         future: getProducts,
         builder: (context, snapShot) {
           if (snapShot.connectionState == ConnectionState.done) {
-            var x = jsonDecode(snapShot.data);
-            ProductResponseModel _productRes = ProductResponseModel.fromJson(x);
+            ProductResponseModel _productRes = ProductResponseModel.fromJson(snapShot.data);
             if(_productRes.flag == 1) {
               products = _productRes.product;
               return ListView.builder(
