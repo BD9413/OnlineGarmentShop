@@ -25,17 +25,12 @@ class _ProductDetailState extends State<ProductDetail> {
 
   String registerUid = "";
   String loginUid = "";
-  Userdata _userdata;
   String uid = "";
-  var user;
 
   getUserValuesSP() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    //Return String
     registerUid = prefs.getString('registerUid');
-    user = prefs.getString('userData');
-    _userdata = Userdata.fromJson(jsonDecode(user));
-    loginUid = _userdata.userId;
+    loginUid = prefs.getString('loginUid');
   }
 
   String getUid (){
@@ -48,6 +43,7 @@ class _ProductDetailState extends State<ProductDetail> {
     }
     return "";
   }
+
   addToCart() async {
     final response = await http.post(APIUrls.cartInsert, body: {
       "user_id": getUid(),

@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: createMaterialColor(Color(0xffBB2C0D)),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: SignIn(),
+      home: Cart(),
     );
   }
   MaterialColor createMaterialColor(Color color) {
