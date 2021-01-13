@@ -13,6 +13,7 @@ import 'package:online_garment_shop/UI/SplashScreen.dart';
 import 'package:online_garment_shop/UI/SubCategory.dart';
 import 'package:online_garment_shop/UI/UpdateProfile.dart';
 
+import 'UI/Orders.dart';
 import 'UI/Payments.dart';
 
 void main() {
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false ,
-      title: 'Flutter Demo',
+      title: 'Online Garment Shop',
       theme: ThemeData(
         primarySwatch: createMaterialColor(Color(0xffBB2C0D)),
         visualDensity: VisualDensity.adaptivePlatformDensity,

@@ -24,11 +24,11 @@ class CartApiResponseModel {
   String message;
 
   factory CartApiResponseModel.fromJson(Map<String, dynamic> json) => CartApiResponseModel(
-    cartList: List<CartList>.from(json["cart"].map((x) => CartList.fromJson(x))),
-    grandTotal: json["grand_total"],
-    totalQty: json["total_qty"],
-    flag: json["flag"],
-    message: json["message"],
+    cartList: json['cart']!=null ? List<CartList>.from(json["cart"].map((x) => CartList.fromJson(x))) : new List(),
+    grandTotal: json["grand_total"]!=null ? json["grand_total"] : 0,
+    totalQty: json["total_qty"]!=null ? json["total_qty"] : 0,
+    flag: json["flag"]!=null ? json["flag"] : 0,
+    message: json["message"]!=null ? json["message"] : "",
   );
 
   Map<String, dynamic> toJson() => {
